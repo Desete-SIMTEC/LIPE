@@ -1,0 +1,43 @@
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define sensor 12
+
+#define OLED_RESET 16
+Adafruit_SSD1306 display(OLED_RESET);
+
+int count = 0;
+
+void setup() {
+  
+  Serial.begin(9600);
+  pinMode(sensor, INPUT_PULLUP);
+  pinMode(rst, INPUT_PULLUP);
+
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3c);
+  display.clearDisplay();
+
+}
+
+int now;
+void loop() {
+ 
+  
+  now = digitalRead(sensor);
+ 
+  
+  Serial.print("INPUT = ");
+  Serial.print(now);
+
+  
+  display.clearDisplay();
+  display.setTextSize(1); // กำหนดขนาดตัวอักษร
+  display.setTextColor(WHITE);
+  display.setCursor(0,0); // กำหนดตำแหน่ง x,y ที่จะแสดงผล
+  display.print("Status");
+  display.setTextSize(3); // กำหนดขนาดตัวอักษร
+  display.setCursor(5,10); // กำหนดตำแหน่ง x,y ที่จะแสดงผล
+  display.print(now);
+  display.display();
+  
+}
